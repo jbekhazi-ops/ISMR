@@ -12,5 +12,10 @@ We both do full test for M1 and M2 fo joint 0 (dahlia) and joint 7 (juliane)
 
 ```{r}
 library(tidyverse)
+```
 
+```{r}
+library(fishualize)
+#fish_palettes() --> this was to make sure that we have Antennarius_commerson pallette in R
+fishualize(option = "Antennarius_commerson")
 ```
