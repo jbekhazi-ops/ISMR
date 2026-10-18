@@ -8,6 +8,8 @@ editor: visual
 
 HELOOOO
 
+We both do full test for M1 and M2 fo joint 0 (dahlia) and joint 7 (juliane)
+
 ```{r}
 library(tidyverse)
 
