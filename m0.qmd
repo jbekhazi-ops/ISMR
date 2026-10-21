@@ -11,11 +11,23 @@ HELOOOO
 We both do full test for M1 and M2 fo joint 0 (dahlia) and joint 7 (juliane)
 
 ```{r}
+#tidyverse for ggplot2
+
+
 library(tidyverse)
+library(moderndive)
+
 ```
 
 ```{r}
 library(fishualize)
 #fish_palettes() --> this was to make sure that we have Antennarius_commerson pallette in R
 fishualize(option = "Antennarius_commerson")
+```
+
+A model using <https://github.com/PsyTeachR/introdataviz> where x axis is the joint number, and y axis is the score we use something like the example <https://psyteachr.github.io/introdataviz/advanced-plots.html>
+
+```{r}
+#figureM1 <- ggplot(data, aes(x = joint, y = score, fill = model)) + split violin things and other layers
+
 ```
