@@ -20,7 +20,24 @@ all <- all|>
 ```
 
 ```{r}
-p <- ggplot(all, aes(x = Joint, y = val_nrmse, fill = Model)) +
+rmse_plot <- ggplot(all, aes(x = Joint, y = val_rmse, fill = Model)) +
+  introdataviz::geom_split_violin(alpha = .5, trim = FALSE, scale = "width") +
+  geom_boxplot(width = .25, alpha = .8, fatten = NULL, show.legend = FALSE) +
+  #stat_summary(fun.data = "mean_se", geom = "pointrange", show.legend = F, 
+               #position = position_dodge(.5)) +
+  scale_x_discrete(name = "Joint", labels = c("0","1","2","4","5","6","7")) +
+  scale_y_continuous(name = "RMSE", breaks = seq(200, 800, 100), limits = c(0, 500)) +
+  scale_fill_fish_d(option = "Antennarius_commerson", name = "Model")+
+  theme_minimal()
+
+ggsave("violin_plot_rmse.png", plot = rmse_plot, width = 12, height = 6)
+print(rmse_plot)
+
+```
+
+
+```{r}
+nrmse_plot <- ggplot(all, aes(x = Joint, y = val_nrmse, fill = Model)) +
   introdataviz::geom_split_violin(alpha = .5, trim = FALSE, scale = "width") +
   geom_boxplot(width = .25, alpha = .8, fatten = NULL, show.legend = FALSE) +
   #stat_summary(fun.data = "mean_se", geom = "pointrange", show.legend = F, 
@@ -30,6 +47,7 @@ p <- ggplot(all, aes(x = Joint, y = val_nrmse, fill = Model)) +
   scale_fill_fish_d(option = "Antennarius_commerson", name = "Model")+
   theme_minimal()
 
-ggsave("violin_plot_nrmse.png", plot = p, width = 12, height = 6)
-
+ggsave("violin_plot_nrmse.png", plot = nrmse_plot, width = 12, height = 6)
+print(nrmse_plot)
 ```
+
