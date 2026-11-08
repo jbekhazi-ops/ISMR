@@ -26,7 +26,7 @@ rmse_plot <- ggplot(all, aes(x = Joint, y = val_rmse, fill = Model)) +
   #stat_summary(fun.data = "mean_se", geom = "pointrange", show.legend = F, 
                #position = position_dodge(.5)) +
   scale_x_discrete(name = "Joint", labels = c("0","1","2","4","5","6","7")) +
-  scale_y_continuous(name = "RMSE", breaks = seq(200, 800, 100), limits = c(0, 500)) +
+  scale_y_continuous(name = "RMSE", breaks = seq(0, 800, 100), limits = c(0, 500)) +
   scale_fill_fish_d(option = "Antennarius_commerson", name = "Model")+
   theme_minimal()
 
@@ -35,15 +35,21 @@ print(rmse_plot)
 
 ```
 
-
 ```{r}
 nrmse_plot <- ggplot(all, aes(x = Joint, y = val_nrmse, fill = Model)) +
   introdataviz::geom_split_violin(alpha = .5, trim = FALSE, scale = "width") +
-  geom_boxplot(width = .25, alpha = .8, fatten = NULL, show.legend = FALSE) +
-  #stat_summary(fun.data = "mean_se", geom = "pointrange", show.legend = F, 
-               #position = position_dodge(.5)) +
+  geom_boxplot(width = .25, alpha = .8, fatten = 1.5, show.legend = FALSE) +
+  stat_summary(
+    fun = median,
+    geom = "text",
+    aes(label = signif(after_stat(y), 3)),
+    position = position_dodge(.71),
+    vjust = -1,
+    size = 2,
+    show.legend = FALSE
+  ) +
   scale_x_discrete(name = "Joint", labels = c("0","1","2","4","5","6","7")) +
-  scale_y_continuous(name = "RMSE", breaks = seq(200, 800, 100), limits = c(0, 1)) +
+  scale_y_continuous(name = "NRMSE", breaks = seq(0, 1, 0.2), limits = c(0, 1)) +
   scale_fill_fish_d(option = "Antennarius_commerson", name = "Model")+
   theme_minimal()
 
@@ -51,3 +57,104 @@ ggsave("violin_plot_nrmse.png", plot = nrmse_plot, width = 12, height = 6)
 print(nrmse_plot)
 ```
 
+```{r}
+all_3 <- read.csv("m3_data.csv")
+all_1_3 <- all_3%>%
+  filter(Model %in% c("M1", "M3"))
+
+m1vs3_plot <- ggplot(all_1_3, aes(x = Joint, y = val_nrmse, fill = Model)) +
+  introdataviz::geom_split_violin(alpha = .5, trim = FALSE, scale = "width") +
+  geom_boxplot(width = .25, alpha = .8, fatten = NULL, show.legend = FALSE) +
+  #stat_summary(fun.data = "mean_se", geom = "pointrange",pri show.legend = F, 
+  #position = position_dodge(.5)) +
+  scale_x_discrete(name = "Joint", labels = c("0","1","2","4","5","6","7")) +
+  scale_y_continuous(name = "NRMSE", breaks = seq(0, 1, 0.2), limits = c(0, 1)) +
+  scale_fill_fish_d(option = "Antennarius_commerson", name = "Model")+
+  theme_minimal()
+
+ggsave("violin_plot_m1vsm3.png", plot = m1vs3_plot, width = 12, height = 6)
+print(m1vs3_plot)
+
+all_2_3 <- all_3%>%
+  filter(Model %in% c("M2", "M3"))
+
+m2vs3_plot <- ggplot(all_2_3, aes(x = Joint, y = val_nrmse, fill = Model)) +
+  introdataviz::geom_split_violin(alpha = .5, trim = FALSE, scale = "width") +
+  geom_boxplot(width = .25, alpha = .8, fatten = NULL, show.legend = FALSE) +
+  #stat_summary(fun.data = "mean_se", geom = "pointrange", show.legend = F, 
+  #position = position_dodge(.5)) +
+  scale_x_discrete(name = "Joint", labels = c("0","1","2","4","5","6","7")) +
+  scale_y_continuous(name = "NRMSE",breaks = seq(0, 1, 0.2), limits = c(0, 1)) +
+  scale_fill_fish_d(option = "Antennarius_commerson", name = "Model")+
+  theme_minimal()
+
+ggsave("violin_plot_m2vsm3.png", plot = m2vs3_plot, width = 12, height = 6)
+print(m2vs3_plot)
+```
+
+```{r}
+M1_data <- all_3|>
+  group_by(Model)|>
+  filter(Model == "M1")|>
+  select(fold,val_nrmse,Joint)
+
+M2_data <- all_3|>
+  group_by(Model)|>
+  filter(Model == "M2")|>
+  select(fold,val_nrmse,Joint)
+
+M3_data <- all_3|>
+  group_by(Model)|>
+  filter(Model == "M3")|>
+  select(fold,val_nrmse,Joint)
+```
+
+```{r}
+summary_df_2 <- data.frame(
+  fold = M1_data$fold,
+  Joint = M1_data$Joint, 
+  nrmse_M1 = M1_data$val_nrmse,
+  nrmse_M2 = M2_data$val_nrmse,
+  NRMSE_diff = M2_data$val_nrmse - M1_data$val_nrmse,
+  abs_NRMSE_diff = abs(M2_data$val_nrmse - M1_data$val_nrmse)
+)
+
+
+summary_df_3 <- data.frame(
+  fold = M1_data$fold,
+  Joint = M1_data$Joint, 
+  nrmse_M1 = M1_data$val_nrmse,
+  nrmse_M3 = M3_data$val_nrmse,
+  NRMSE_diff = M3_data$val_nrmse - M1_data$val_nrmse,
+  abs_NRMSE_diff = abs(M3_data$val_nrmse - M1_data$val_nrmse)
+  )
+```
+
+```{r}
+M2_M1_data <- summary_df_2|>
+  select(Joint,NRMSE_diff, abs_NRMSE_diff)
+
+M3_M1_data <- summary_df_3|>
+  select(Joint,NRMSE_diff, abs_NRMSE_diff)
+
+combined_df <- bind_rows(
+  "M2-M1" = M2_M1_data, 
+  "M3-M1" = M3_M1_data, 
+  .id = "Model"
+)
+```
+
+```{r}
+diff_nrmse_plot <- ggplot(combined_df, aes(x = Joint, y = NRMSE_diff, fill = Model)) +
+  introdataviz::geom_split_violin(alpha = .5, trim = FALSE, scale = "width") +
+  geom_boxplot(width = .25, alpha = .8, fatten = NULL, show.legend = FALSE) +
+  #stat_summary(fun.data = "mean_se", geom = "pointrange", show.legend = F, 
+  #position = position_dodge(.5)) +
+  scale_x_discrete(name = "Joint", labels = c("0","1","2","4","5","6","7")) +
+  scale_y_continuous(name = "NRMSE diff", breaks = seq(-0.2,0.4,0.2), limits = c(-0.2, 0.4)) +
+  scale_fill_fish_d(option = "Antennarius_commerson", name = "Model")+
+  theme_minimal()
+
+ggsave("violin_plot_diff_nrmse.png", plot = diff_nrmse_plot, width = 12, height = 6)
+print(diff_nrmse_plot)
+```
