@@ -1,0 +1,246 @@
+---
+title: "Phase Portraits"
+format: html
+---
+
+```{r}
+#| message: false
+library(tidyverse)
+library(moderndive)
+library(fishualize)
+```
+
+```{r}
+
+M1data <- read.csv("M1J0rank.csv")
+
+# Create phase portrait
+m1j0phase <- ggplot(M1data, aes(
+  x = jpos0,
+  y = jvel0
+)) +
+
+  # Trajectory through phase space
+  geom_path(
+    aes(colour = err_norm),
+    linewidth = 1
+  ) +
+
+  # Individual data points
+  geom_point(
+    aes(colour = err_norm),
+    size = 1.5
+  ) +
+
+  # Zero velocity reference line
+  geom_hline(
+    yintercept = 0,
+    linetype = "dashed",
+    colour = "grey40"
+  ) +
+
+  # Fishualize colour palette
+  scale_colour_fish(
+    option = "Ostracion_cubicus",
+    name = "Prediction error"
+  ) +
+
+  labs(
+    title = "Phase Portrait: M1 Joint 0",
+    x = "Joint Position",
+    y = "Joint Velocity"
+  ) +
+
+  theme_minimal()
+
+ggsave("phaseportrait_M1J0_nrmse.png", plot = m1j0phase, width = 12, height = 8)
+print(m1j0phase)
+```
+
+```{r}
+# Create phase portrait
+m1j0phase <- ggplot(M1data, aes(
+  x = jpos0,
+  y = jvel0
+)) +
+
+  # Trajectory through phase space
+  geom_path(
+    aes(colour = err_norm),
+    linewidth = 1
+  ) +
+
+  # Individual data points
+  geom_point(
+    aes(colour = err_norm),
+    size = 1.5
+  ) +
+
+  # Zero velocity reference line
+  geom_hline(
+    yintercept = 0,
+    linetype = "dashed",
+    colour = "grey40"
+  ) +
+
+  # Fishualize colour palette
+  scale_colour_fish(
+    option = "Ostracion_cubicus",
+    name = "Prediction error"
+  ) +
+
+  labs(
+    title = "Phase Portrait: M1 Joint 0",
+    x = "Joint Position",
+    y = "Joint Velocity"
+  ) +
+
+  theme_minimal()
+
+ggsave("phaseportrait_M1J0_nrmse.png", plot = m1j0phase, width = 12, height = 8)
+print(m1j0phase)
+```
+
+```{r}
+```{r}
+
+M1data <- read.csv("M1J0rank.csv")
+
+# Create phase portrait
+m1j0phase <- ggplot(M1data, aes(
+  x = jpos0,
+  y = jvel0
+)) +
+
+  # Trajectory through phase space
+  geom_path(
+    aes(colour = err_norm),
+    linewidth = 1
+  ) +
+
+  # Individual data points
+  geom_point(
+    aes(colour = err_norm),
+    size = 1.5
+  ) +
+
+  # Zero velocity reference line
+  geom_hline(
+    yintercept = 0,
+    linetype = "dashed",
+    colour = "grey40"
+  ) +
+
+  # Fishualize colour palette
+  scale_colour_fish(
+    option = "Ostracion_cubicus",
+    name = "Prediction error"
+  ) +
+
+  labs(
+    title = "Phase Portrait: M1 Joint 0",
+    x = "Joint Position",
+    y = "Joint Velocity"
+  ) +
+
+  theme_minimal()
+
+ggsave("phaseportrait_M1J0_nrmse.png", plot = m1j0phase, width = 12, height = 8)
+print(m1j0phase)
+```
+
+```{r}
+
+M2data <- read.csv("m2_j0rank.csv")
+# Create phase portrait
+m2j0phase <- ggplot(M2data, aes(
+  x = jpos0,
+  y = jvel0
+)) +
+
+  # Trajectory through phase space
+  geom_path(
+    aes(colour = err_norm),
+    linewidth = 1
+  ) +
+
+  # Individual data points
+  geom_point(
+    aes(colour = err_norm),
+    size = 1.5
+  ) +
+
+  # Zero velocity reference line
+  geom_hline(
+    yintercept = 0,
+    linetype = "dashed",
+    colour = "grey40"
+  ) +
+
+  # Fishualize colour palette
+  scale_colour_fish(
+    option = "Ostracion_cubicus",
+    name = "Prediction error"
+  ) +
+
+  labs(
+    title = "Phase Portrait: M2 Joint 0",
+    x = "Joint Position",
+    y = "Joint Velocity"
+  ) +
+
+  theme_minimal()
+
+ggsave("phaseportrait_M2J0_nrmse.png", plot = m2j0phase, width = 12, height = 8)
+print(m2j0phase)
+```
+
+
+
+```{r}
+
+
+M3data <- read.csv("m3_j0rank.csv")
+# Create phase portrait
+m3j0phase <- ggplot(M3data, aes(
+  x = jpos0,
+  y = jvel0
+)) +
+
+  # Trajectory through phase space
+  geom_path(
+    aes(colour = err_norm),
+    linewidth = 1
+  ) +
+
+  # Individual data points
+  geom_point(
+    aes(colour = err_norm),
+    size = 1.5
+  ) +
+
+  # Zero velocity reference line
+  geom_hline(
+    yintercept = 0,
+    linetype = "dashed",
+    colour = "grey40"
+  ) +
+
+  # Fishualize colour palette
+  scale_colour_fish(
+    option = "Ostracion_cubicus",
+    name = "Prediction error"
+  ) +
+
+  labs(
+    title = "Phase Portrait: M3 Joint 0",
+    x = "Joint Position",
+    y = "Joint Velocity"
+  ) +
+
+  theme_minimal()
+
+ggsave("phaseportrait_M3J0_nrmse.png", plot = m3j0phase, width = 12, height = 8)
+print(m3j0phase)
+```
+
