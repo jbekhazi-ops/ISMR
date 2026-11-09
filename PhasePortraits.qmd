@@ -11,147 +11,134 @@ library(fishualize)
 ```
 
 ```{r}
-
 M1data <- read.csv("M1J0rank.csv")
-
-# Create phase portrait
-m1j0phase <- ggplot(M1data, aes(
-  x = jpos0,
-  y = jvel0
-)) +
-
-  # Trajectory through phase space
-  geom_path(
-    aes(colour = err_norm),
-    linewidth = 1
-  ) +
-
-  # Individual data points
-  geom_point(
-    aes(colour = err_norm),
-    size = 1.5
-  ) +
-
-  # Zero velocity reference line
-  geom_hline(
-    yintercept = 0,
-    linetype = "dashed",
-    colour = "grey40"
-  ) +
-
-  # Fishualize colour palette
-  scale_colour_fish(
-    option = "Ostracion_cubicus",
-    name = "Prediction error"
-  ) +
-
-  labs(
-    title = "Phase Portrait: M1 Joint 0",
-    x = "Joint Position",
-    y = "Joint Velocity"
-  ) +
-
-  theme_minimal()
-
-ggsave("phaseportrait_M1J0_nrmse.png", plot = m1j0phase, width = 12, height = 8)
-print(m1j0phase)
-```
-
-```{r}
-# Create phase portrait
-m1j0phase <- ggplot(M1data, aes(
-  x = jpos0,
-  y = jvel0
-)) +
-
-  # Trajectory through phase space
-  geom_path(
-    aes(colour = err_norm),
-    linewidth = 1
-  ) +
-
-  # Individual data points
-  geom_point(
-    aes(colour = err_norm),
-    size = 1.5
-  ) +
-
-  # Zero velocity reference line
-  geom_hline(
-    yintercept = 0,
-    linetype = "dashed",
-    colour = "grey40"
-  ) +
-
-  # Fishualize colour palette
-  scale_colour_fish(
-    option = "Ostracion_cubicus",
-    name = "Prediction error"
-  ) +
-
-  labs(
-    title = "Phase Portrait: M1 Joint 0",
-    x = "Joint Position",
-    y = "Joint Velocity"
-  ) +
-
-  theme_minimal()
-
-ggsave("phaseportrait_M1J0_nrmse.png", plot = m1j0phase, width = 12, height = 8)
-print(m1j0phase)
-```
-
-```{r}
-```{r}
-
-M1data <- read.csv("M1J0rank.csv")
-
-# Create phase portrait
-m1j0phase <- ggplot(M1data, aes(
-  x = jpos0,
-  y = jvel0
-)) +
-
-  # Trajectory through phase space
-  geom_path(
-    aes(colour = err_norm),
-    linewidth = 1
-  ) +
-
-  # Individual data points
-  geom_point(
-    aes(colour = err_norm),
-    size = 1.5
-  ) +
-
-  # Zero velocity reference line
-  geom_hline(
-    yintercept = 0,
-    linetype = "dashed",
-    colour = "grey40"
-  ) +
-
-  # Fishualize colour palette
-  scale_colour_fish(
-    option = "Ostracion_cubicus",
-    name = "Prediction error"
-  ) +
-
-  labs(
-    title = "Phase Portrait: M1 Joint 0",
-    x = "Joint Position",
-    y = "Joint Velocity"
-  ) +
-
-  theme_minimal()
-
-ggsave("phaseportrait_M1J0_nrmse.png", plot = m1j0phase, width = 12, height = 8)
-print(m1j0phase)
-```
-
-```{r}
-
 M2data <- read.csv("m2_j0rank.csv")
+M3data <- read.csv("m3_j0rank.csv")
+
+# Find global minimum and maximum prediction error
+min_error <- min(
+  M1data$err_norm,
+  M2data$err_norm,
+  M3data$err_norm,
+  na.rm = TRUE
+)
+
+max_error <- max(
+  M1data$err_norm,
+  M2data$err_norm,
+  M3data$err_norm,
+  na.rm = TRUE
+)
+
+```
+
+
+```{r}
+
+# Create phase portrait
+m1j1phase <- ggplot(M1data, aes(
+  x = jpos1,
+  y = jvel1
+)) +
+
+  # Trajectory through phase space
+  geom_path(
+    aes(colour = err_norm),
+    linewidth = 1.5
+  ) +
+
+  # Individual data points
+  geom_point(
+    aes(colour = err_norm),
+    size = 2
+  ) +
+
+  # Zero velocity reference line
+  geom_hline(
+    yintercept = 0,
+    linetype = "dashed",
+    colour = "grey40"
+  ) +
+
+  # Custom prediction error colour scale
+  scale_colour_gradientn(
+    colours = c(
+      "lightblue",
+      "lightskyblue",
+      "salmon",
+      "red",
+      "darkred"
+    ),
+    limits = c(min_error, max_error),
+    name = "Prediction error"
+  ) +
+
+  labs(
+    title = "Phase Portrait: M1 Joint 1",
+    x = "Joint Position",
+    y = "Joint Velocity"
+  ) +
+
+  theme_minimal()
+
+ggsave("phaseportrait_M1J1_nrmse.png", plot = m1j1phase, width = 12, height = 8)
+print(m1j1phase)
+```
+
+```{r}
+# Create phase portrait
+m1j0phase <- ggplot(M1data, aes(
+  x = jpos0,
+  y = jvel0
+)) +
+
+  # Trajectory through phase space
+  geom_path(
+    aes(colour = err_norm),
+    linewidth = 1.5
+  ) +
+
+  # Individual data points
+  geom_point(
+    aes(colour = err_norm),
+    size = 2
+  ) +
+
+  # Zero velocity reference line
+  geom_hline(
+    yintercept = 0,
+    linetype = "dashed",
+    colour = "grey40"
+  ) +
+
+  # Custom prediction error colour scale
+  scale_colour_gradientn(
+    colours = c(
+      "lightblue",
+      "lightskyblue",
+      "salmon",
+      "red",
+      "darkred"
+    ),
+    limits = c(min_error, max_error),
+    name = "Prediction error"
+  ) +
+
+  labs(
+    title = "Phase Portrait: M1 Joint 0",
+    x = "Joint Position",
+    y = "Joint Velocity"
+  ) +
+
+  theme_minimal()
+
+ggsave("phaseportrait_M1J0_nrmse.png", plot = m1j0phase, width = 12, height = 8)
+print(m1j0phase)
+```
+
+
+```{r}
+
 # Create phase portrait
 m2j0phase <- ggplot(M2data, aes(
   x = jpos0,
@@ -161,13 +148,13 @@ m2j0phase <- ggplot(M2data, aes(
   # Trajectory through phase space
   geom_path(
     aes(colour = err_norm),
-    linewidth = 1
+    linewidth = 1.5
   ) +
 
   # Individual data points
   geom_point(
     aes(colour = err_norm),
-    size = 1.5
+    size = 2
   ) +
 
   # Zero velocity reference line
@@ -177,11 +164,18 @@ m2j0phase <- ggplot(M2data, aes(
     colour = "grey40"
   ) +
 
-  # Fishualize colour palette
-  scale_colour_fish(
-    option = "Ostracion_cubicus",
+  # Custom prediction error colour scale
+  scale_colour_gradientn(
+    colours = c(
+      "lightblue",
+      "lightskyblue",
+      "salmon",
+      "red",
+      "darkred"
+    ),
+    limits = c(min_error, max_error),
     name = "Prediction error"
-  ) +
+  )+
 
   labs(
     title = "Phase Portrait: M2 Joint 0",
@@ -196,27 +190,23 @@ print(m2j0phase)
 ```
 
 
-
 ```{r}
-
-
-M3data <- read.csv("m3_j0rank.csv")
 # Create phase portrait
-m3j0phase <- ggplot(M3data, aes(
-  x = jpos0,
-  y = jvel0
+m2j1phase <- ggplot(M2data, aes(
+  x = jpos1,
+  y = jvel1
 )) +
 
   # Trajectory through phase space
   geom_path(
     aes(colour = err_norm),
-    linewidth = 1
+    linewidth = 1.5
   ) +
 
   # Individual data points
   geom_point(
     aes(colour = err_norm),
-    size = 1.5
+    size = 2
   ) +
 
   # Zero velocity reference line
@@ -226,9 +216,71 @@ m3j0phase <- ggplot(M3data, aes(
     colour = "grey40"
   ) +
 
-  # Fishualize colour palette
-  scale_colour_fish(
-    option = "Ostracion_cubicus",
+  # Custom prediction error colour scale
+  scale_colour_gradientn(
+    colours = c(
+      "lightblue",
+      "lightskyblue",
+      "salmon",
+      "red",
+      "darkred"
+    ),
+    limits = c(min_error, max_error),
+    name = "Prediction error"
+  )+
+
+  labs(
+    title = "Phase Portrait: M2 Joint 1",
+    x = "Joint Position",
+    y = "Joint Velocity"
+  ) +
+
+  theme_minimal()
+
+ggsave("phaseportrait_M2J1_nrmse.png", plot = m2j1phase, width = 12, height = 8)
+print(m2j1phase)
+```
+
+
+```{r}
+
+
+
+# Create phase portrait
+m3j0phase <- ggplot(M3data, aes(
+  x = jpos0,
+  y = jvel0
+)) +
+
+  # Trajectory through phase space
+  geom_path(
+    aes(colour = err_norm),
+    linewidth = 1.5
+  ) +
+
+  # Individual data points
+  geom_point(
+    aes(colour = err_norm),
+    size = 2
+  ) +
+
+  # Zero velocity reference line
+  geom_hline(
+    yintercept = 0,
+    linetype = "dashed",
+    colour = "grey40"
+  ) +
+
+  # Custom prediction error colour scale
+  scale_colour_gradientn(
+    colours = c(
+      "lightblue",
+      "lightskyblue",
+      "salmon",
+      "red",
+      "darkred"
+    ),
+    limits = c(min_error, max_error),
     name = "Prediction error"
   ) +
 
@@ -242,5 +294,56 @@ m3j0phase <- ggplot(M3data, aes(
 
 ggsave("phaseportrait_M3J0_nrmse.png", plot = m3j0phase, width = 12, height = 8)
 print(m3j0phase)
+```
+
+
+```{r}
+m3j1phase <- ggplot(M3data, aes(
+  x = jpos1,
+  y = jvel1
+)) +
+
+  # Trajectory through phase space
+  geom_path(
+    aes(colour = err_norm),
+    linewidth = 1.5
+  ) +
+
+  # Individual data points
+  geom_point(
+    aes(colour = err_norm),
+    size = 2
+  ) +
+
+  # Zero velocity reference line
+  geom_hline(
+    yintercept = 0,
+    linetype = "dashed",
+    colour = "grey40"
+  ) +
+
+  # Custom prediction error colour scale
+  scale_colour_gradientn(
+    colours = c(
+      "lightblue",
+      "lightskyblue",
+      "salmon",
+      "red",
+      "darkred"
+    ),
+    limits = c(min_error, max_error),
+    name = "Prediction error"
+  ) +
+
+  labs(
+    title = "Phase Portrait: M3 Joint 1",
+    x = "Joint Position",
+    y = "Joint Velocity"
+  ) +
+
+  theme_minimal()
+
+ggsave("phaseportrait_M3J1_nrmse.png", plot = m3j1phase, width = 12, height = 8)
+print(m3j1phase)
 ```
 
