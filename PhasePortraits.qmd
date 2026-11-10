@@ -8,6 +8,7 @@ format: html
 library(tidyverse)
 library(moderndive)
 library(fishualize)
+library(patchwork)
 ```
 
 ```{r}
@@ -30,59 +31,6 @@ max_error <- max(
   na.rm = TRUE
 )
 
-```
-
-
-```{r}
-
-# Create phase portrait
-m1j1phase <- ggplot(M1data, aes(
-  x = jpos1,
-  y = jvel1
-)) +
-
-  # Trajectory through phase space
-  geom_path(
-    aes(colour = err_norm),
-    linewidth = 1.5
-  ) +
-
-  # Individual data points
-  geom_point(
-    aes(colour = err_norm),
-    size = 2
-  ) +
-
-  # Zero velocity reference line
-  geom_hline(
-    yintercept = 0,
-    linetype = "dashed",
-    colour = "grey40"
-  ) +
-
-  # Custom prediction error colour scale
-  scale_colour_gradientn(
-    colours = c(
-      "lightblue",
-      "lightskyblue",
-      "salmon",
-      "red",
-      "darkred"
-    ),
-    limits = c(min_error, max_error),
-    name = "Prediction error"
-  ) +
-
-  labs(
-    title = "Phase Portrait: M1 Joint 1",
-    x = "Joint Position",
-    y = "Joint Velocity"
-  ) +
-
-  theme_minimal()
-
-ggsave("phaseportrait_M1J1_nrmse.png", plot = m1j1phase, width = 12, height = 8)
-print(m1j1phase)
 ```
 
 ```{r}
@@ -130,11 +78,318 @@ m1j0phase <- ggplot(M1data, aes(
     y = "Joint Velocity"
   ) +
 
-  theme_minimal()
+theme(text = element_text(size = 12),  axis.text = element_text(size = 12), axis.title =             element_text(size = 12))
 
 ggsave("phaseportrait_M1J0_nrmse.png", plot = m1j0phase, width = 12, height = 8)
 print(m1j0phase)
 ```
+
+```{r}
+
+# Create phase portrait
+m1j1phase <- ggplot(M1data, aes(
+  x = jpos1,
+  y = jvel1
+)) +
+
+  # Trajectory through phase space
+  geom_path(
+    aes(colour = err_norm),
+    linewidth = 1.5
+  ) +
+
+  # Individual data points
+  geom_point(
+    aes(colour = err_norm),
+    size = 2
+  ) +
+
+  # Zero velocity reference line
+  geom_hline(
+    yintercept = 0,
+    linetype = "dashed",
+    colour = "grey40"
+  ) +
+
+  # Custom prediction error colour scale
+  scale_colour_gradientn(
+    colours = c(
+      "lightblue",
+      "lightskyblue",
+      "salmon",
+      "red",
+      "darkred"
+    ),
+    limits = c(min_error, max_error),
+    name = "Prediction error"
+  ) +
+
+  labs(
+    title = "Phase Portrait: M1 Joint 1",
+    x = "Joint Position",
+    y = "Joint Velocity"
+  ) +
+
+theme(text = element_text(size = 12),  axis.text = element_text(size = 12), axis.title =             element_text(size = 12))
+
+ggsave("phaseportrait_M1J1_nrmse.png", plot = m1j1phase, width = 12, height = 8)
+print(m1j1phase)
+```
+
+```{r}
+# Create phase portrait
+m1j2phase <- ggplot(M1data, aes(
+  x = jpos2,
+  y = jvel2
+)) +
+
+  # Trajectory through phase space
+  geom_path(
+    aes(colour = err_norm),
+    linewidth = 1.5
+  ) +
+
+  # Individual data points
+  geom_point(
+    aes(colour = err_norm),
+    size = 2
+  ) +
+
+  # Zero velocity reference line
+  geom_hline(
+    yintercept = 0,
+    linetype = "dashed",
+    colour = "grey40"
+  ) +
+
+  # Custom prediction error colour scale
+  scale_colour_gradientn(
+    colours = c(
+      "lightblue",
+      "lightskyblue",
+      "salmon",
+      "red",
+      "darkred"
+    ),
+    limits = c(min_error, max_error),
+    name = "Prediction error"
+  ) +
+
+  labs(
+    title = "Phase Portrait: M1 Joint 2",
+    x = "Joint Position",
+    y = "Joint Velocity"
+  ) +
+
+  theme(text = element_text(size = 12),  axis.text = element_text(size = 12), axis.title =             element_text(size = 12))
+
+ggsave("phaseportrait_M1J2_nrmse.png", plot = m1j2phase, width = 12, height = 8)
+print(m1j2phase)
+```
+
+```{r}
+# Create phase portrait
+m1j4phase <- ggplot(M1data, aes(
+  x = jpos4,
+  y = jvel4
+)) +
+
+  # Trajectory through phase space
+  geom_path(
+    aes(colour = err_norm),
+    linewidth = 1.5
+  ) +
+
+  # Individual data points
+  geom_point(
+    aes(colour = err_norm),
+    size = 2
+  ) +
+
+  # Zero velocity reference line
+  geom_hline(
+    yintercept = 0,
+    linetype = "dashed",
+    colour = "grey40"
+  ) +
+
+  # Custom prediction error colour scale
+  scale_colour_gradientn(
+    colours = c(
+      "lightblue",
+      "lightskyblue",
+      "salmon",
+      "red",
+      "darkred"
+    ),
+    limits = c(min_error, max_error),
+    name = "Prediction error"
+  ) +
+
+  labs(
+    title = "Phase Portrait: M1 Joint 4",
+    x = "Joint Position",
+    y = "Joint Velocity"
+  ) +
+  theme(text = element_text(size = 12),  axis.text = element_text(size = 12), axis.title =             element_text(size = 12))
+
+ggsave("phaseportrait_M1J4_nrmse.png", plot = m1j4phase, width = 12, height = 8)
+print(m1j4phase)
+```
+
+```{r}
+# Create phase portrait
+m1j5phase <- ggplot(M1data, aes(
+  x = jpos5,
+  y = jvel5
+)) +
+
+  # Trajectory through phase space
+  geom_path(
+    aes(colour = err_norm),
+    linewidth = 1.5
+  ) +
+
+  # Individual data points
+  geom_point(
+    aes(colour = err_norm),
+    size = 2
+  ) +
+
+  # Zero velocity reference line
+  geom_hline(
+    yintercept = 0,
+    linetype = "dashed",
+    colour = "grey40"
+  ) +
+
+  # Custom prediction error colour scale
+  scale_colour_gradientn(
+    colours = c(
+      "lightblue",
+      "lightskyblue",
+      "salmon",
+      "red",
+      "darkred"
+    ),
+    limits = c(min_error, max_error),
+    name = "Prediction error"
+  ) +
+
+  labs(
+    title = "Phase Portrait: M1 Joint 5",
+    x = "Joint Position",
+    y = "Joint Velocity"
+  ) +
+
+  theme(text = element_text(size = 12),  axis.text = element_text(size = 12), axis.title =             element_text(size = 12))
+
+ggsave("phaseportrait_M1J0_nrmse.png", plot = m1j5phase, width = 12, height = 8)
+print(m1j5phase)
+```
+
+```{r}
+# Create phase portrait
+m1j6phase <- ggplot(M1data, aes(
+  x = jpos6,
+  y = jvel6
+)) +
+
+  # Trajectory through phase space
+  geom_path(
+    aes(colour = err_norm),
+    linewidth = 1.5
+  ) +
+
+  # Individual data points
+  geom_point(
+    aes(colour = err_norm),
+    size = 2
+  ) +
+
+  # Zero velocity reference line
+  geom_hline(
+    yintercept = 0,
+    linetype = "dashed",
+    colour = "grey40"
+  ) +
+
+  # Custom prediction error colour scale
+  scale_colour_gradientn(
+    colours = c(
+      "lightblue",
+      "lightskyblue",
+      "salmon",
+      "red",
+      "darkred"
+    ),
+    limits = c(min_error, max_error),
+    name = "Prediction error"
+  ) +
+
+  labs(
+    title = "Phase Portrait: M1 Joint 6",
+    x = "Joint Position",
+    y = "Joint Velocity"
+  ) +
+
+  theme(text = element_text(size = 12),  axis.text = element_text(size = 12), axis.title =             element_text(size = 12))
+
+ggsave("phaseportrait_M1J0_nrmse.png", plot = m1j6phase, width = 12, height = 8)
+print(m1j6phase)
+```
+
+```{r}
+# Create phase portrait
+m1j7phase <- ggplot(M1data, aes(
+  x = jpos7,
+  y = jvel7
+)) +
+
+  # Trajectory through phase space
+  geom_path(
+    aes(colour = err_norm),
+    linewidth = 1.5
+  ) +
+
+  # Individual data points
+  geom_point(
+    aes(colour = err_norm),
+    size = 2
+  ) +
+
+  # Zero velocity reference line
+  geom_hline(
+    yintercept = 0,
+    linetype = "dashed",
+    colour = "grey40"
+  ) +
+
+  # Custom prediction error colour scale
+  scale_colour_gradientn(
+    colours = c(
+      "lightblue",
+      "lightskyblue",
+      "salmon",
+      "red",
+      "darkred"
+    ),
+    limits = c(min_error, max_error),
+    name = "Prediction error"
+  ) +
+
+  labs(
+    title = "Phase Portrait: M1 Joint 7",
+    x = "Joint Position",
+    y = "Joint Velocity"
+  ) +
+
+  theme(text = element_text(size = 12),  axis.text = element_text(size = 12), axis.title =             element_text(size = 12))
+
+ggsave("phaseportrait_M1J7_nrmse.png", plot = m1j7phase, width = 12, height = 8)
+print(m1j7phase)
+```
+
 
 
 ```{r}
@@ -183,7 +438,7 @@ m2j0phase <- ggplot(M2data, aes(
     y = "Joint Velocity"
   ) +
 
-  theme_minimal()
+  theme(text = element_text(size = 12),  axis.text = element_text(size = 12), axis.title =             element_text(size = 12))
 
 ggsave("phaseportrait_M2J0_nrmse.png", plot = m2j0phase, width = 12, height = 8)
 print(m2j0phase)
@@ -235,17 +490,269 @@ m2j1phase <- ggplot(M2data, aes(
     y = "Joint Velocity"
   ) +
 
-  theme_minimal()
+    theme(text = element_text(size = 12),  axis.text = element_text(size = 12), axis.title =             element_text(size = 12))
 
 ggsave("phaseportrait_M2J1_nrmse.png", plot = m2j1phase, width = 12, height = 8)
 print(m2j1phase)
 ```
 
+```{r}
+# Create phase portrait
+m2j2phase <- ggplot(M2data, aes(
+  x = jpos2,
+  y = jvel2
+)) +
+
+  # Trajectory through phase space
+  geom_path(
+    aes(colour = err_norm),
+    linewidth = 1.5
+  ) +
+
+  # Individual data points
+  geom_point(
+    aes(colour = err_norm),
+    size = 2
+  ) +
+
+  # Zero velocity reference line
+  geom_hline(
+    yintercept = 0,
+    linetype = "dashed",
+    colour = "grey40"
+  ) +
+
+  # Custom prediction error colour scale
+  scale_colour_gradientn(
+    colours = c(
+      "lightblue",
+      "lightskyblue",
+      "salmon",
+      "red",
+      "darkred"
+    ),
+    limits = c(min_error, max_error),
+    name = "Prediction error"
+  )+
+
+  labs(
+    title = "Phase Portrait: M2 Joint 2",
+    x = "Joint Position",
+    y = "Joint Velocity"
+  ) +
+
+    theme(text = element_text(size = 12),  axis.text = element_text(size = 12), axis.title =             element_text(size = 12))
+
+ggsave("phaseportrait_M2J2_nrmse.png", plot = m2j2phase, width = 12, height = 8)
+print(m2j2phase)
+```
 
 ```{r}
+# Create phase portrait
+m2j4phase <- ggplot(M2data, aes(
+  x = jpos4,
+  y = jvel4
+)) +
+
+  # Trajectory through phase space
+  geom_path(
+    aes(colour = err_norm),
+    linewidth = 1.5
+  ) +
+
+  # Individual data points
+  geom_point(
+    aes(colour = err_norm),
+    size = 2
+  ) +
+
+  # Zero velocity reference line
+  geom_hline(
+    yintercept = 0,
+    linetype = "dashed",
+    colour = "grey40"
+  ) +
+
+  # Custom prediction error colour scale
+  scale_colour_gradientn(
+    colours = c(
+      "lightblue",
+      "lightskyblue",
+      "salmon",
+      "red",
+      "darkred"
+    ),
+    limits = c(min_error, max_error),
+    name = "Prediction error"
+  )+
+
+  labs(
+    title = "Phase Portrait: M2 Joint 4",
+    x = "Joint Position",
+    y = "Joint Velocity"
+  ) +
+
+    theme(text = element_text(size = 12),  axis.text = element_text(size = 12), axis.title =             element_text(size = 12))
+
+ggsave("phaseportrait_M2J4_nrmse.png", plot = m2j4phase, width = 12, height = 8)
+print(m2j4phase)
+```
+
+```{r}
+# Create phase portrait
+m2j5phase <- ggplot(M2data, aes(
+  x = jpos5,
+  y = jvel5
+)) +
+
+  # Trajectory through phase space
+  geom_path(
+    aes(colour = err_norm),
+    linewidth = 1.5
+  ) +
+
+  # Individual data points
+  geom_point(
+    aes(colour = err_norm),
+    size = 2
+  ) +
+
+  # Zero velocity reference line
+  geom_hline(
+    yintercept = 0,
+    linetype = "dashed",
+    colour = "grey40"
+  ) +
+
+  # Custom prediction error colour scale
+  scale_colour_gradientn(
+    colours = c(
+      "lightblue",
+      "lightskyblue",
+      "salmon",
+      "red",
+      "darkred"
+    ),
+    limits = c(min_error, max_error),
+    name = "Prediction error"
+  )+
+
+  labs(
+    title = "Phase Portrait: M2 Joint 5",
+    x = "Joint Position",
+    y = "Joint Velocity"
+  ) +
+
+    theme(text = element_text(size = 12),  axis.text = element_text(size = 12), axis.title =             element_text(size = 12))
+
+ggsave("phaseportrait_M2J5_nrmse.png", plot = m2j5phase, width = 12, height = 8)
+print(m2j5phase)
+```
+
+```{r}
+# Create phase portrait
+m2j6phase <- ggplot(M2data, aes(
+  x = jpos6,
+  y = jvel6
+)) +
+
+  # Trajectory through phase space
+  geom_path(
+    aes(colour = err_norm),
+    linewidth = 1.5
+  ) +
+
+  # Individual data points
+  geom_point(
+    aes(colour = err_norm),
+    size = 2
+  ) +
+
+  # Zero velocity reference line
+  geom_hline(
+    yintercept = 0,
+    linetype = "dashed",
+    colour = "grey40"
+  ) +
+
+  # Custom prediction error colour scale
+  scale_colour_gradientn(
+    colours = c(
+      "lightblue",
+      "lightskyblue",
+      "salmon",
+      "red",
+      "darkred"
+    ),
+    limits = c(min_error, max_error),
+    name = "Prediction error"
+  )+
+
+  labs(
+    title = "Phase Portrait: M2 Joint 6",
+    x = "Joint Position",
+    y = "Joint Velocity"
+  ) +
+
+    theme(text = element_text(size = 12),  axis.text = element_text(size = 12), axis.title =             element_text(size = 12))
+
+ggsave("phaseportrait_M2J6_nrmse.png", plot = m2j6phase, width = 12, height = 8)
+print(m2j6phase)
+```
+
+```{r}
+# Create phase portrait
+m2j7phase <- ggplot(M2data, aes(
+  x = jpos7,
+  y = jvel7
+)) +
+
+  # Trajectory through phase space
+  geom_path(
+    aes(colour = err_norm),
+    linewidth = 1.5
+  ) +
+
+  # Individual data points
+  geom_point(
+    aes(colour = err_norm),
+    size = 2
+  ) +
+
+  # Zero velocity reference line
+  geom_hline(
+    yintercept = 0,
+    linetype = "dashed",
+    colour = "grey40"
+  ) +
+
+  # Custom prediction error colour scale
+  scale_colour_gradientn(
+    colours = c(
+      "lightblue",
+      "lightskyblue",
+      "salmon",
+      "red",
+      "darkred"
+    ),
+    limits = c(min_error, max_error),
+    name = "Prediction error"
+  )+
+
+  labs(
+    title = "Phase Portrait: M2 Joint 7",
+    x = "Joint Position",
+    y = "Joint Velocity"
+  ) +
+
+    theme(text = element_text(size = 12),  axis.text = element_text(size = 12), axis.title =             element_text(size = 12))
+
+ggsave("phaseportrait_M2J7_nrmse.png", plot = m2j7phase, width = 12, height = 8)
+print(m2j7phase)
+```
 
 
-
+```{r}
 # Create phase portrait
 m3j0phase <- ggplot(M3data, aes(
   x = jpos0,
@@ -290,7 +797,7 @@ m3j0phase <- ggplot(M3data, aes(
     y = "Joint Velocity"
   ) +
 
-  theme_minimal()
+   theme(text = element_text(size = 12),  axis.text = element_text(size = 12), axis.title =             element_text(size = 12))
 
 ggsave("phaseportrait_M3J0_nrmse.png", plot = m3j0phase, width = 12, height = 8)
 print(m3j0phase)
@@ -341,9 +848,287 @@ m3j1phase <- ggplot(M3data, aes(
     y = "Joint Velocity"
   ) +
 
-  theme_minimal()
+   theme(text = element_text(size = 12),  axis.text = element_text(size = 12), axis.title =             element_text(size = 12))
 
 ggsave("phaseportrait_M3J1_nrmse.png", plot = m3j1phase, width = 12, height = 8)
 print(m3j1phase)
 ```
 
+```{r}
+# Create phase portrait
+m3j2phase <- ggplot(M3data, aes(
+  x = jpos2,
+  y = jvel2
+)) +
+
+  # Trajectory through phase space
+  geom_path(
+    aes(colour = err_norm),
+    linewidth = 1.5
+  ) +
+
+  # Individual data points
+  geom_point(
+    aes(colour = err_norm),
+    size = 2
+  ) +
+
+  # Zero velocity reference line
+  geom_hline(
+    yintercept = 0,
+    linetype = "dashed",
+    colour = "grey40"
+  ) +
+
+  # Custom prediction error colour scale
+  scale_colour_gradientn(
+    colours = c(
+      "lightblue",
+      "lightskyblue",
+      "salmon",
+      "red",
+      "darkred"
+    ),
+    limits = c(min_error, max_error),
+    name = "Prediction error"
+  ) +
+
+  labs(
+    title = "Phase Portrait: M3 Joint 2",
+    x = "Joint Position",
+    y = "Joint Velocity"
+  ) +
+
+   theme(text = element_text(size = 12),  axis.text = element_text(size = 12), axis.title =             element_text(size = 12))
+
+ggsave("phaseportrait_M3J2_nrmse.png", plot = m3j2phase, width = 12, height = 8)
+print(m3j2phase)
+```
+
+```{r}
+# Create phase portrait
+m3j4phase <- ggplot(M3data, aes(
+  x = jpos4,
+  y = jvel4
+)) +
+
+  # Trajectory through phase space
+  geom_path(
+    aes(colour = err_norm),
+    linewidth = 1.5
+  ) +
+
+  # Individual data points
+  geom_point(
+    aes(colour = err_norm),
+    size = 2
+  ) +
+
+  # Zero velocity reference line
+  geom_hline(
+    yintercept = 0,
+    linetype = "dashed",
+    colour = "grey40"
+  ) +
+
+  # Custom prediction error colour scale
+  scale_colour_gradientn(
+    colours = c(
+      "lightblue",
+      "lightskyblue",
+      "salmon",
+      "red",
+      "darkred"
+    ),
+    limits = c(min_error, max_error),
+    name = "Prediction error"
+  ) +
+
+  labs(
+    title = "Phase Portrait: M3 Joint 4",
+    x = "Joint Position",
+    y = "Joint Velocity"
+  ) +
+
+   theme(text = element_text(size = 12),  axis.text = element_text(size = 12), axis.title =             element_text(size = 12))
+
+ggsave("phaseportrait_M3J4_nrmse.png", plot = m3j4phase, width = 12, height = 8)
+print(m3j4phase)
+```
+
+```{r}
+# Create phase portrait
+m3j5phase <- ggplot(M3data, aes(
+  x = jpos5,
+  y = jvel5
+)) +
+
+  # Trajectory through phase space
+  geom_path(
+    aes(colour = err_norm),
+    linewidth = 1.5
+  ) +
+
+  # Individual data points
+  geom_point(
+    aes(colour = err_norm),
+    size = 2
+  ) +
+
+  # Zero velocity reference line
+  geom_hline(
+    yintercept = 0,
+    linetype = "dashed",
+    colour = "grey40"
+  ) +
+
+  # Custom prediction error colour scale
+  scale_colour_gradientn(
+    colours = c(
+      "lightblue",
+      "lightskyblue",
+      "salmon",
+      "red",
+      "darkred"
+    ),
+    limits = c(min_error, max_error),
+    name = "Prediction error"
+  ) +
+
+  labs(
+    title = "Phase Portrait: M3 Joint 5",
+    x = "Joint Position",
+    y = "Joint Velocity"
+  ) +
+
+   theme(text = element_text(size = 12),  axis.text = element_text(size = 12), axis.title =             element_text(size = 12))
+
+ggsave("phaseportrait_M3J5_nrmse.png", plot = m3j5phase, width = 12, height = 8)
+print(m3j5phase)
+```
+
+```{r}
+# Create phase portrait
+m3j6phase <- ggplot(M3data, aes(
+  x = jpos6,
+  y = jvel6
+)) +
+
+  # Trajectory through phase space
+  geom_path(
+    aes(colour = err_norm),
+    linewidth = 1.5
+  ) +
+
+  # Individual data points
+  geom_point(
+    aes(colour = err_norm),
+    size = 2
+  ) +
+
+  # Zero velocity reference line
+  geom_hline(
+    yintercept = 0,
+    linetype = "dashed",
+    colour = "grey40"
+  ) +
+
+  # Custom prediction error colour scale
+  scale_colour_gradientn(
+    colours = c(
+      "lightblue",
+      "lightskyblue",
+      "salmon",
+      "red",
+      "darkred"
+    ),
+    limits = c(min_error, max_error),
+    name = "Prediction error"
+  ) +
+
+  labs(
+    title = "Phase Portrait: M3 Joint 6",
+    x = "Joint Position",
+    y = "Joint Velocity"
+  ) +
+
+   theme(text = element_text(size = 12),  axis.text = element_text(size = 12), axis.title =             element_text(size = 12))
+
+ggsave("phaseportrait_M3J6_nrmse.png", plot = m3j6phase, width = 12, height = 8)
+print(m3j6phase)
+```
+
+```{r}
+# Create phase portrait
+m3j7phase <- ggplot(M3data, aes(
+  x = jpos7,
+  y = jvel7
+)) +
+
+  # Trajectory through phase space
+  geom_path(
+    aes(colour = err_norm),
+    linewidth = 1.5
+  ) +
+
+  # Individual data points
+  geom_point(
+    aes(colour = err_norm),
+    size = 2
+  ) +
+
+  # Zero velocity reference line
+  geom_hline(
+    yintercept = 0,
+    linetype = "dashed",
+    colour = "grey40"
+  ) +
+
+  # Custom prediction error colour scale
+  scale_colour_gradientn(
+    colours = c(
+      "lightblue",
+      "lightskyblue",
+      "salmon",
+      "red",
+      "darkred"
+    ),
+    limits = c(min_error, max_error),
+    name = "Prediction error"
+  ) +
+
+  labs(
+    title = "Phase Portrait: M3 Joint 7",
+    x = "Joint Position",
+    y = "Joint Velocity"
+  ) +
+
+   theme(text = element_text(size = 12),  axis.text = element_text(size = 12), axis.title =             element_text(size = 12))
+
+ggsave("phaseportrait_M3J7_nrmse.png", plot = m3j7phase, width = 12, height = 8)
+print(m3j7phase)
+```
+
+
+```{r}
+combined_phase_j1 <- (
+  m1j0phase +
+  m1j1phase +
+  m1j2phase +
+  m1j4phase +
+  m1j5phase +
+  m1j6phase +
+  m1j7phase
+) +
+  plot_layout(ncol = 3)
+
+combined_phase
+
+ggsave(
+  "phaseportraits_M1_all_joints.png",
+  plot = combined_phase,
+  width = 16,
+  height = 14,
+  dpi = 300
+)
+```

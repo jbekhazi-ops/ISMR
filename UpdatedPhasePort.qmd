@@ -1,0 +1,183 @@
+---
+title: "Updated Phase Portraits"
+format: html
+---
+
+```{r}
+#| message: false
+library(tidyverse)
+library(moderndive)
+library(fishualize)
+library(patchwork)
+```
+
+```{r}
+M1data <- read.csv("M1j0synced.csv")
+M2data <- read.csv("m2_j0rank.csv")
+M3data <- read.csv("m3_j0rank.csv")
+
+# Find global minimum and maximum prediction error
+min_error <- 0
+
+max_error <- 1.5
+
+```
+
+```{r}
+# Create phase portrait
+m1j0phase <- ggplot(M1data, aes(
+  x = jpos0,
+  y = jvel0
+)) +
+
+  # Individual data points
+  geom_point(
+    aes(colour = abs(err_norm)),
+    size = 2
+  ) +
+
+  # Zero velocity reference line
+  geom_hline(
+    yintercept = 0,
+    linetype = "dashed",
+    colour = "grey40"
+  ) +
+
+  # Custom prediction error colour scale
+  scale_colour_gradientn(
+    colours = c(
+      "lightblue",
+      "lightskyblue",
+      "salmon",
+      "red",
+      "darkred"
+    ),
+    limits = c(min_error, max_error),
+    name = "Prediction error"
+  ) +
+
+  labs(
+    title = "M",
+    x = "Joint angle (rad)",
+    y = "Joint velocity (rad/s)"
+  ) +
+
+theme(text = element_text(size = 12),  axis.text = element_text(size = 12), axis.title =element_text(size = 12))
+
+#ggsave("phaseportrait_M1J0_nrmse.png", plot = m1j0phase, width = 12, height = 8)
+#print(m1j0phase)
+```
+
+```{r}
+
+#Create phase portrait
+
+m2j0phase<- ggplot(M3data, aes(
+  x = jpos0,
+  y = jvel0
+)) +
+
+  # Individual data points
+  geom_point(
+    aes(colour = abs(err_norm)),
+    size = 2
+  ) +
+
+  # Zero velocity reference line
+  geom_hline(
+    yintercept = 0,
+    linetype = "dashed",
+    colour = "grey40"
+  ) +
+
+  # Custom prediction error colour scale
+  scale_colour_gradientn(
+    colours = c(
+      "lightblue",
+      "lightskyblue",
+      "salmon",
+      "red",
+      "darkred"
+    ),
+    limits = c(min_error, max_error),
+    name = "Prediction error"
+  )+
+
+  labs(
+    title = "Mdes",
+    x = "Joint angle (rad)",
+    y = "Joint velocity (rad/s)"
+  ) +
+
+  theme(text = element_text(size = 12),  axis.text = element_text(size = 12), axis.title =element_text(size = 12))
+
+#ggsave("phaseportrait_M2J0_nrmse.png", plot = m2j0phase, width = 12, height = 8)
+#print(m2j0phase)
+```
+
+
+```{r}
+# Create phase portrait
+m3j0phase<- ggplot(M3data, aes(
+  x = jpos0,
+  y = jvel0
+)) +
+
+  # Individual data points
+  geom_point(
+    aes(colour = abs(err_norm)),
+    size = 2
+  ) +
+
+  # Zero velocity reference line
+  geom_hline(
+    yintercept = 0,
+    linetype = "dashed",
+    colour = "grey40"
+  ) +
+
+  # Custom prediction error colour scale
+  scale_colour_gradientn(
+    colours = c(
+      "lightblue",
+      "lightskyblue",
+      "salmon",
+      "red",
+      "darkred"
+    ),
+    limits = c(min_error, max_error),
+    name = "Prediction error"
+  ) +
+
+  labs(
+    title = "Maux",
+    x = "Joint angle (rad)",
+    y = "Joint velocity (rad/s)"
+  ) +
+
+   theme(text = element_text(size = 12),  axis.text = element_text(size = 12), axis.title=element_text(size = 12))
+
+#ggsave("phaseportrait_M3J0_nrmse.png", plot = m3j0phase, width = 12, height = 8)
+#print(m3j0phase)
+```
+
+```{r}
+
+combined_phase_j0<-(
+  m1j0phase +
+  m2j0phase +
+  m3j0phase 
+) +
+  plot_layout(ncol = 3) +
+  plot_annotation(title = "Joint 0: Where Predictions Go Wrong")
+
+combined_phase_j0
+
+ggsave(
+  "phaseportraits_allM_j0.png",
+  plot = combined_phase_j0,
+  width = 16,
+  height = 14,
+  dpi = 300
+)
+```
